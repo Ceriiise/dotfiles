@@ -23,6 +23,12 @@
   dt  = difftool
   stat = !git --no-pager diff --stat
 
+  # Set remotes/origin/HEAD -> defaultBranch (copied from https://stackoverflow.com/a/67672350/14870317)
+  remoteSetHead = remote set-head origin --auto
+
+  # Get default branch name (copied from https://stackoverflow.com/a/67672350/14870317)
+  defaultBranch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+
   # Clean merged branches
   sweep = !git branch --merged master | grep -v 'master$' | xargs git branch -d && git remote prune origin
 
@@ -46,6 +52,13 @@
 
 [branch "master"]
   mergeoptions = --no-edit
+
+[pull]
+  rebase = false
+
+[init]
+  defaultBranch = master
+  
 [user]
 	email = Phi.berton@hotmail.fr
 	name = Philippine Berton
